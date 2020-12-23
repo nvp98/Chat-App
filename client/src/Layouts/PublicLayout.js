@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
-
+import Header from "../Components/Header/Header";
 
 export const PublicLayout = (props) => (
-    <Suspense
-    
-  >
-    <div className="public-layout">{props.children}</div>
-  </Suspense>
-
+  <>
+    <Header />
+    <div className="main-content">
+      <div className="content_wrap">{props.children}</div>
+    </div>
+  </>
 );

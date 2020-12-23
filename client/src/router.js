@@ -9,12 +9,18 @@ const routers = [
     path: "/login",
     exact: true,
     component: LoginPage,
-    isPrivate: true,
+    // isPrivate: true,
   },
   {
     path: "/signup",
     exact: true,
     component: SignUpPage,
+    // isPrivate: true,
+  },
+  {
+    path: "/",
+    exact: true,
+    component: HomePage,
     isPrivate: true,
   },
   {

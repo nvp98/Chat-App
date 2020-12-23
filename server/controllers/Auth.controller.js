@@ -37,8 +37,9 @@ export const SignUp = async (req, res) => {
   // res.status(200).json(data);
   try {
     if (req.body.username && req.body.password) {
-      AuthModel.insertMany(obj);
-      res.status(200).json("SignUp successfull");
+      const data = await AuthModel.insertMany(req.body);
+      console.log(data, "respon");
+      res.status(200).json(data);
     } else {
       res.status(200).json("Please Input UserName and Password");
     }

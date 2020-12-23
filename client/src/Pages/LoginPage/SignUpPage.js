@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,7 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
-
+import { SettingsInputSvideoRounded } from "@material-ui/icons";
+import axios from "axios";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -47,9 +48,28 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
   const history = useHistory();
+
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+
+  const sign = async () => {
+    const body = {
+      username: user,
+      password: password,
+      socketid: "123",
+    };
+    axios
+      .post(`http://localhost:5000/signup`, body)
+      .then((res) => {
+        console.log(res.data, "data login");
+        props.history.push("/login");
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -64,10 +84,10 @@ export default function SignUp() {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
-                autoComplete="fname"
+                // autoComplete="fname"
                 name="firstName"
                 variant="outlined"
-                required
+                // required
                 fullWidth
                 id="firstName"
                 label="First Name"
@@ -77,7 +97,7 @@ export default function SignUp() {
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
-                required
+                // required
                 fullWidth
                 id="lastName"
                 label="Last Name"
@@ -91,9 +111,12 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label="User Name"
                 name="email"
                 autoComplete="email"
+                onChange={(e) => {
+                  setUser(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -106,6 +129,9 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </Grid>
             <Grid item xs={12}>
@@ -116,11 +142,11 @@ export default function SignUp() {
             </Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={sign}
           >
             Sign Up
           </Button>

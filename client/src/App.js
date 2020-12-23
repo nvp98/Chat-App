@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import { API_URL } from "./GlobalConstants";
 import { Router, Switch } from "react-router-dom";
 import { PrivateRoute, PublicRoute } from "./Layouts/";
-import routers from "./router";
+import routes from "./router";
 import { createBrowserHistory } from "history";
 const history = createBrowserHistory();
 
@@ -36,7 +36,7 @@ function App() {
     return <Switch>{result}</Switch>;
   };
 
-  return <Router history={history}>{renderContent(routers)}</Router>;
+  return <Router history={history}>{renderContent(routes)}</Router>;
 }
 
 export default App;
